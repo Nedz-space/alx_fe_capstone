@@ -5,24 +5,24 @@ export default function SearchBar({ onSearch }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (query.trim()) onSearch(query);
+    if (query.trim()) onSearch(query.trim());
   };
 
   return (
     <form
       onSubmit={handleSubmit}
-      className="flex items-center gap-2 bg-[--color-card] p-2 rounded-xl shadow-md"
+      className="flex items-center bg-gray-800 rounded-lg overflow-hidden shadow-md"
     >
       <input
         type="text"
-        placeholder="Search for a movie..."
-        className="flex-1 px-4 py-3 rounded-lg bg-transparent text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[--color-primary]"
         value={query}
         onChange={(e) => setQuery(e.target.value)}
+        placeholder="Search movies..."
+        className="w-full px-4 py-3 bg-gray-800 text-gray-200 placeholder-gray-500 focus:outline-none"
       />
       <button
         type="submit"
-        className="bg-[--color-primary] hover:bg-red-600 text-white px-5 py-3 rounded-lg font-semibold transition-colors"
+        className="px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold transition-all"
       >
         Search
       </button>

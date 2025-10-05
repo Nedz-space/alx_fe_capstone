@@ -1,51 +1,41 @@
 import React, { useEffect, useState } from "react";
+import { fetchMovies } from "../services/omdb";
 import MovieCard from "./MovieCard";
-import { searchMovies } from "../services/omdb";
 
 export default function SearchResults({ query }) {
   const [movies, setMovies] = useState([]);
-  const [status, setStatus] = useState("idle");
-  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (!query) return;
-
-    const fetchMovies = async () => {
-      setStatus("loading");
-      setError("");
-      try {
-        const data = await searchMovies(query);
-        if (data.Response === "False") {
-          setError(data.Error);
-          setMovies([]);
-        } else {
-          setMovies(data.Search);
-        }
-        setStatus("success");
-      } catch {
-        setStatus("error");
-        setError("Failed to fetch movies. Try again later.");
-      }
+    const getMovies = async () => {
+      setLoading(true);
+      const data = await fetchMovies(query);
+      setMovies(data);
+      setLoading(false);
     };
-
-    fetchMovies();
+    getMovies();
   }, [query]);
 
   if (!query)
     return (
       <p className="text-center text-gray-400">
-        Start searching to explore movies.
+        Start by searching for your favorite movie 🎬
       </p>
     );
 
-  if (status === "loading")
-    return <p className="text-center text-gray-400">Loading...</p>;
+  if (loading)
+    return <p className="text-center text-gray-400">Loading movies...</p>;
 
-  if (error)
-    return <p className="text-center text-red-400">{error}</p>;
+  if (movies.length === 0)
+    return (
+      <p className="text-center text-gray-400">
+        No movies found for “{query}” 😔
+      </p>
+    );
 
   return (
-    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
+    <div className="grid gap-6 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
       {movies.map((movie) => (
         <MovieCard key={movie.imdbID} movie={movie} />
       ))}

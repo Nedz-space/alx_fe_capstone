@@ -5,7 +5,7 @@ import MovieDetails from "./pages/MovieDetails";
 
 export default function App() {
   return (
-    <div className="min-h-screen bg-[--color-bg] text-white">
+    <div className="min-h-screen bg-gray-950 text-white">
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/movie/:id" element={<MovieDetails />} />
