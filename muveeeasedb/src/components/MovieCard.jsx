@@ -1,14 +1,18 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 export default function MovieCard({ movie }) {
-  const { Title, Year, Poster } = movie;
+  const { Title, Year, Poster, imdbID } = movie;
   const validPoster =
     Poster && Poster !== "N/A"
       ? Poster
       : "https://via.placeholder.com/300x445?text=No+Image";
 
   return (
-    <div className="bg-[--color-card] rounded-xl overflow-hidden shadow-lg hover:shadow-[--color-primary]/40 hover:scale-105 transition-transform">
+    <Link
+      to={`/movie/${imdbID}`}
+      className="bg-[--color-card] rounded-xl overflow-hidden shadow-lg hover:shadow-[--color-primary]/40 hover:scale-105 transition-transform"
+    >
       <img
         src={validPoster}
         alt={`${Title} Poster`}
@@ -18,6 +22,6 @@ export default function MovieCard({ movie }) {
         <h3 className="text-lg font-semibold truncate">{Title}</h3>
         <p className="text-sm text-gray-400">{Year}</p>
       </div>
-    </div>
+    </Link>
   );
 }
