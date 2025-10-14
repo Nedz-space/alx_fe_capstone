@@ -24,6 +24,12 @@ export async function fetchMovies(query, page = 1) {
 }
 
 /**
+ * Alias for fetchMovies — keeps backwards compatibility.
+ * This is the function used in SearchResults.jsx.
+ */
+export const searchMovies = fetchMovies;
+
+/**
  * Fetch detailed information about a specific movie.
  * @param {string} id - The IMDb ID of the movie.
  * @returns {Promise<Object|null>} - Returns movie details or null on failure.
