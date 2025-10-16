@@ -1,4 +1,5 @@
-const API_KEY = "51fdbfa9"; // your OMDB API key
+// src/services/omdb.js
+const API_KEY = import.meta.env.VITE_OMDB_API_KEY;
 const BASE_URL = "https://www.omdbapi.com/";
 
 /**
@@ -16,7 +17,7 @@ export async function fetchMovies(query, page = 1) {
       return { Response: "False", Error: data.Error || "No results found." };
     }
 
-    return data; // includes Search[], totalResults, and Response: "True"
+    return data;
   } catch (err) {
     console.error("Error fetching movies:", err);
     return { Response: "False", Error: "Network error occurred." };
@@ -25,7 +26,6 @@ export async function fetchMovies(query, page = 1) {
 
 /**
  * Alias for fetchMovies — keeps backwards compatibility.
- * This is the function used in SearchResults.jsx.
  */
 export const searchMovies = fetchMovies;
 
