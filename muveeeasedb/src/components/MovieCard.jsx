@@ -4,7 +4,7 @@ import { FavoritesContext } from "../context/FavoritesContext";
 import { Heart } from "lucide-react"; // install via: npm install lucide-react
 
 export default function MovieCard({ movie }) {
-  const { addFavorite, removeFavorite, isFavorite } = useContext(FavoritesContext);
+  const { toggleFavorite, isFavorite } = useContext(FavoritesContext);
   const favorite = isFavorite(movie.imdbID);
 
   return (
@@ -24,10 +24,8 @@ export default function MovieCard({ movie }) {
         </div>
 
         <button
-          onClick={() =>
-            favorite ? removeFavorite(movie.imdbID) : addFavorite(movie)
-          }
-          className={`p-2 rounded-full ${
+          onClick={() => toggleFavorite(movie)}
+          className={`p-2 rounded-full transition ${
             favorite ? "bg-red-600" : "bg-gray-700 hover:bg-gray-600"
           }`}
           title={favorite ? "Remove from favorites" : "Add to favorites"}
